@@ -24,7 +24,12 @@ dependencies {
     runtimeOnly("com.mysql:mysql-connector-j")
     compileOnly ("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+//
+   implementation("com.github.javafaker:javafaker:1.0.2") {
+        exclude(module = "snakeyaml")
+    }
 
+    implementation("org.yaml:snakeyaml:2.2")
 
 }
 

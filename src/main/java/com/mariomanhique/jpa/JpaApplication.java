@@ -1,5 +1,6 @@
 package com.mariomanhique.jpa;
 
+import com.github.javafaker.Faker;
 import com.mariomanhique.jpa.models.Author;
 import com.mariomanhique.jpa.models.Video;
 import com.mariomanhique.jpa.repositories.AuthorRepository;
@@ -37,21 +38,26 @@ public class JpaApplication {
     ) {
 
         return args -> {
+            Faker faker = new Faker();
+            for (int i = 0; i<50; i++){
+                var author = Author.builder()
+                        .firstName(faker.name().firstName())
+                        .lastName(faker.name().lastName())
+                        .email(faker.name().firstName()+faker.name().lastName()+"@gmail.com")
+                        .age(faker.number().numberBetween(20,50))
+                        .createdAt(LocalDateTime.now())
+                        .build();
 
-//            var author = Author.builder()
-//                    .firstName("Mario")
-//                    .lastName("Manhique")
-//                    .email("mario@gmail.com")
-//                    .age(25)
-//                    .createdAt(LocalDateTime.now())
+                authorRepository.save(author);
+            }
+
+
+//            var video = Video.builder()
+//                    .name("abc")
+//                    .length(5)
 //                    .build();
-
-            var video = Video.builder()
-                    .name("abc")
-                    .length(5)
-                    .build();
-
-            videoRepository.save(video);
+//
+//            videoRepository.save(video);
         };
 
     }
